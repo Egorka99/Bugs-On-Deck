@@ -1,0 +1,6 @@
+C:\Users\Egor\source\repos\Bugs\ClassLibraryBugs\bin\Debug\ClassLibraryBugs.dll
+C:\Users\Egor\source\repos\Bugs\ClassLibraryBugs\bin\Debug\ClassLibraryBugs.pdb
+C:\Users\Egor\source\repos\Bugs\ClassLibraryBugs\obj\Debug\ClassLibraryBugs.csprojAssemblyReference.cache
+C:\Users\Egor\source\repos\Bugs\ClassLibraryBugs\obj\Debug\ClassLibraryBugs.csproj.CoreCompileInputs.cache
+C:\Users\Egor\source\repos\Bugs\ClassLibraryBugs\obj\Debug\ClassLibraryBugs.dll
+C:\Users\Egor\source\repos\Bugs\ClassLibraryBugs\obj\Debug\ClassLibraryBugs.pdb
