@@ -31,6 +31,7 @@
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.buttonMove = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,27 +47,38 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(21, 98);
+            this.button1.Location = new System.Drawing.Point(25, 80);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(101, 58);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Хуйня";
+            this.button1.Text = "FirstStep";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(482, 67);
+            this.listBox1.Location = new System.Drawing.Point(497, 68);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(240, 225);
+            this.listBox1.Size = new System.Drawing.Size(463, 225);
             this.listBox1.TabIndex = 2;
+            // 
+            // buttonMove
+            // 
+            this.buttonMove.Location = new System.Drawing.Point(25, 158);
+            this.buttonMove.Name = "buttonMove";
+            this.buttonMove.Size = new System.Drawing.Size(101, 58);
+            this.buttonMove.TabIndex = 3;
+            this.buttonMove.Text = "Move";
+            this.buttonMove.UseVisualStyleBackColor = true;
+            this.buttonMove.Click += new System.EventHandler(this.buttonMove_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 548);
+            this.ClientSize = new System.Drawing.Size(972, 348);
+            this.Controls.Add(this.buttonMove);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox);
@@ -82,6 +94,7 @@
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button buttonMove;
     }
 }
 

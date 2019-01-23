@@ -56,7 +56,20 @@ namespace Bugs
                 listBox1.Items.Add(item);
             }
            
-        } 
+        }
+
+        private void buttonMove_Click(object sender, EventArgs e)
+        {
+            bugs.Move();
+
+            listBox1.Items.Clear();
+
+            foreach (var item in bugs.Info())
+            {
+
+                listBox1.Items.Add(item);
+            }
+        }
     }   
      
    
