@@ -37,16 +37,26 @@ namespace Bugs
 
              bugs.Spawn();
 
-            label1.Text = bugs.bugX.ToString();
-            label2.Text = bugs.bugY.ToString();
+            foreach (var item in bugs.Info())
+            {
+                listBox1.Items.Add(item);
+            }
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             bugs.FirstStep();
-            label1.Text = bugs.bugX.ToString();
-            label2.Text = bugs.bugY.ToString();
-        }
+
+            listBox1.Items.Clear();
+
+            foreach (var item in bugs.Info() )
+            {
+
+                listBox1.Items.Add(item);
+            }
+           
+        } 
     }   
      
    

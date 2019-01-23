@@ -11,25 +11,21 @@ namespace ClassLibraryBugs
         private Pen pen; 
         private SolidBrush color;
 
-        private List<BugAndDir> bugslist; 
+        public List<BugAndDir> bugslist; 
 
-        private Point[] spawnpoints;  
+        private List<Point> spawnpoints;  
         private Point[] movepoints;
 
-        public int bugX;
-        public int bugY;
 
-
-
-
-        public struct BugAndDir
+        public class BugAndDir
         {
-            public Bug bug;
+            public Bug bug; 
             public Point direction; 
-        }
+            public string movingmap;  
+        } 
 
-          
-        /// <summary>
+           
+        /// <summary> 
         /// Инициализируем средства для рисования
         /// </summary>
         public BugsOnDeck(Graphics g, Pen pen, SolidBrush color)
@@ -43,8 +39,8 @@ namespace ClassLibraryBugs
            
         public void Spawn()     
         { 
-
-            spawnpoints = new Point[]
+             
+            spawnpoints = new List<Point>
             { 
                 new Point(0,0), new Point(50,0),  new Point(100,0), new Point(150,0) , new Point(200,0),
                 new Point(0,50), new Point(50,50), new Point(100,50) , new Point(150,50), new Point(200,50),
@@ -55,17 +51,28 @@ namespace ClassLibraryBugs
              
             Random rnd = new Random();
 
-            for (int i = 0; i < 1; i++)
+            // Появление жуков
+            for (int i = 0; i < 5; i++)
             {
-                bugX = spawnpoints[rnd.Next(0, spawnpoints.Length)].X;
-                bugY = spawnpoints[rnd.Next(0, spawnpoints.Length)].Y;
+                // Координаты появления
+                int bugX = spawnpoints[rnd.Next(0, spawnpoints.Count)].X; 
+                int bugY = spawnpoints[rnd.Next(0, spawnpoints.Count)].Y;
 
+                // Добавляем жуков
                 bugslist.Add(new BugAndDir() {
-                    bug = new Bug(bugX, bugY)
-            });
-             
-            }
-             
+                    bug = new Bug(bugX, bugY),
+                    movingmap = ""
+                }); 
+
+                // удаляем использованные точки спавна
+                for (int j = 0; j < spawnpoints.Count; j++)
+                {
+                    if (spawnpoints[j].X == bugX && spawnpoints[j].Y == bugY) 
+                        spawnpoints.Remove(spawnpoints[j]);  
+                } 
+   
+            } 
+              
             //bug1 = new Bug(spawnpoints[rnd.Next(0, spawnpoints.Length)].X, spawnpoints[rnd.Next(0, spawnpoints.Length)].Y);
             //bug2 = new Bug(spawnpoints[rnd.Next(0, spawnpoints.Length)].X, spawnpoints[rnd.Next(0, spawnpoints.Length)].Y);
             //bug3 = new Bug(spawnpoints[rnd.Next(0, spawnpoints.Length)].X, spawnpoints[rnd.Next(0, spawnpoints.Length)].Y);
@@ -102,33 +109,94 @@ namespace ClassLibraryBugs
                 new Point(0,50), //вниз
             };
               
-            g.Clear(Color.WhiteSmoke);  
+            g.Clear(Color.WhiteSmoke);
 
-            Random rnd = new Random(); 
+
+
+            Random rnd = new Random();
 
             // изменяем координаты с помощью move
-            foreach (var item in bugslist) 
+            for (int i = 0; i < 5; i++)
             {
-                Point offsetPoint = movepoints[rnd.Next(0, movepoints.Length)];
-                int offsetX = offsetPoint.X;  
-                int offsetY = offsetPoint.Y;
-                item.bug.Move(offsetX, offsetY);
 
-                bugX += offsetX;
-                bugY += offsetY; 
+                Point offsetPoint = movepoints[rnd.Next(0, movepoints.Length)];
+                int offsetX = offsetPoint.X;
+                int offsetY = offsetPoint.Y;
+
+                // куда передвинулся жук 
+                if (offsetX == 50 && offsetY == 0)
+                    bugslist[i].movingmap += "right" + " ";
+                if (offsetX == -50 && offsetY == 0)
+                    bugslist[i].movingmap += "left" + " ";
+                if (offsetX == 0 && offsetY == -50)
+                    bugslist[i].movingmap = "up" + " "; 
+                if (offsetX == 0 && offsetY == 50) 
+                    bugslist[i].movingmap = "down" + " "; 
+                  
+
+                bugslist[i].bug.Move(offsetX , offsetY);
+                bugslist[i].direction = new Point(offsetX, offsetY);
+
             }
 
-            // если координаты фигур совпадают , удаляем обе фигуры
+            // Массив индексов, которые необходимо удалить
+            List<int> index = new List<int>(); 
+
+            // сравниваем все координаты, если есть одинаковые - произошло столкновение, удаляем
+            for (int i = 0; i < 5; i++) 
+            {
+                for (int j = 0; j < 5; j++) 
+                {
+
+                    if (i != j)
+                    {
+                        //если коорд одинаковые
+                        if (bugslist[i].bug.GetX() == bugslist[j].bug.GetX() &&
+                            bugslist[i].bug.GetY() == bugslist[j].bug.GetY())
+                        {
+                            // записываем индексы в массив  
+                            if (!index.Contains(i))
+                                index.Add(i);
+                            if (!index.Contains(j))
+                                index.Add(j);
+
+                        } 
+                    }
+                    
+                }
+            }
+            // удаляем жуков 
+            foreach (var item in index )
+            {
+                bugslist.Remove(bugslist[item]);  
+            } 
+             
 
             // рисуем
-
             Draw(); 
 
         } 
-         
+          
+        public List<string> Info()
+        {
+            List<string> info = new List<string>();
+
+            foreach (var item in bugslist)
+            {
+                info.Add(
+                    "Координаты: " + item.bug.GetX() + ":" + item.bug.GetY() +
+                    " Перемещения: " + item.movingmap
+                    );
+            }
+            return info; 
+        } 
+
         public void Move()
-        { 
-             
+        {
+            foreach (var item in bugslist)
+            {
+                item.bug.Move( item.direction.X , item.direction.Y );
+            }
         }
     }
 
@@ -137,7 +205,7 @@ namespace ClassLibraryBugs
     /// </summary> 
     public class Bug
     {
-        private Point center;
+        private Point leftup;
         private Rectangle rect;
         private int size;
 
@@ -145,23 +213,27 @@ namespace ClassLibraryBugs
          
         public Bug(int x, int y) 
         {  
-            center = new Point(x, y); 
+            leftup = new Point(x, y); 
 
             size = 50;
         }   
          
         public void Show(Graphics g, Pen pen, SolidBrush brush)
         {
-            rect = new Rectangle(center.X, center.Y, size, size);
+            rect = new Rectangle(leftup.X, leftup.Y, size, size);
             g.DrawRectangle(pen, rect); 
             g.FillRectangle(brush, rect);
         } 
           
         public void Move(int a, int b)  
         { 
-            center.X += a; center.Y += b;
+            leftup.X += a; leftup.Y += b;
         }
 
 
-    } 
+        public int GetX() { return leftup.X; }
+        public int GetY() { return leftup.Y; }
+
+         
+    }    
 }
