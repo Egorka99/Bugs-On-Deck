@@ -228,7 +228,8 @@ namespace ClassLibraryBugs
                     item.bug.Move(item.direction.X, item.direction.Y);
                     AddWay(item, item.direction.X, item.direction.Y);
 
-                    Stop(bugslist); 
+                    Stop(bugslist);
+
 
                 } 
        

@@ -27,6 +27,9 @@ namespace Bugs
 
         private void pictureBox_Click(object sender, EventArgs e)
         {
+            labelClick.Text = ""; 
+            button1.Enabled = true;
+             
             //Выбираем перо "myPen" черного цвета Black
             //толщиной в 1 пиксель:
              pen = new Pen(Color.Black, 2); 
@@ -46,6 +49,9 @@ namespace Bugs
 
         private void button1_Click(object sender, EventArgs e)
         {
+            buttonMove.Visible = true;
+            button1.Visible = false; 
+
             bugs.FirstStep();
 
             listBox1.Items.Clear();
