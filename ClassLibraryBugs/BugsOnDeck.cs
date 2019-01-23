@@ -4,20 +4,18 @@ using System.Collections.Generic;
 
 namespace ClassLibraryBugs
 { 
-      
     public class BugsOnDeck
-    { 
-
+    {
         // средства для рисования фигур
         private Graphics g;
         private Pen pen; 
         private SolidBrush color; 
 
-        /// <summary>
-        /// Список жуков
+        /// <summary> 
+        /// Список жуков 
         /// </summary>
         public List<BugProp> bugslist; 
-
+         
         /// <summary>
         /// Координаты для появления жука
         /// </summary>
@@ -64,7 +62,9 @@ namespace ClassLibraryBugs
             this.pen = pen;    
             this.color = color;
 
-            bugslist = new List<BugProp>();      
+            bugslist = new List<BugProp>();
+
+            g.Clear(Color.Peru);
         } 
            
         /// <summary>
@@ -97,7 +97,7 @@ namespace ClassLibraryBugs
                     MovingMap = "",
                     CanMoving = true
                 }); 
-                 
+                  
                 // удаляем использованные точки спавна
                 for (int j = 0; j < spawnpoints.Count; j++)
                 {
@@ -276,7 +276,7 @@ namespace ClassLibraryBugs
         /// </summary>
         /// <returns></returns>
         public bool Check()
-        { 
+        {
             foreach (var item in bugslist)
             {
                 if (item.CanMoving) 
