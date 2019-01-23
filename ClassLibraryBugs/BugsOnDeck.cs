@@ -7,27 +7,56 @@ namespace ClassLibraryBugs
       
     public class BugsOnDeck
     { 
+
+        // средства для рисования фигур
         private Graphics g;
         private Pen pen; 
-        private SolidBrush color;
+        private SolidBrush color; 
 
+        /// <summary>
+        /// Список жуков
+        /// </summary>
         public List<BugProp> bugslist; 
 
+        /// <summary>
+        /// Координаты для появления жука
+        /// </summary>
         private List<Point> spawnpoints;  
+
+        /// <summary>
+        /// Координаты для движения жука
+        /// </summary>
         private Point[] movepoints;
 
-
+        /// <summary>
+        /// Жук и его свойства 
+        /// </summary>
         public class BugProp
-        {
+        {   
+            /// <summary>
+            /// Жук
+            /// </summary>
             public Bug bug; 
-            public Point direction; 
-            public string movingmap;
-            public bool canmoving; 
+
+            /// <summary>
+            /// Координаты, задающие направление движения
+            /// </summary>
+            public Point Direction; 
+
+            /// <summary>
+            /// Список перемещений жука
+            /// </summary>
+            public string MovingMap;
+
+            /// <summary>
+            /// Не запрещено ли у жука движение 
+            /// </summary>
+            public bool CanMoving; 
         } 
 
            
         /// <summary> 
-        /// Инициализируем средства для рисования
+        /// Инициализируем средства для рисования и список
         /// </summary>
         public BugsOnDeck(Graphics g, Pen pen, SolidBrush color)
         {
@@ -35,9 +64,12 @@ namespace ClassLibraryBugs
             this.pen = pen;    
             this.color = color;
 
-            bugslist = new List<BugProp>();     
+            bugslist = new List<BugProp>();      
         } 
            
+        /// <summary>
+        /// Появление 5 жуков на доске
+        /// </summary>
         public void Spawn()     
         { 
              
@@ -62,8 +94,8 @@ namespace ClassLibraryBugs
                 // Добавляем жуков
                 bugslist.Add(new BugProp() {
                     bug = new Bug(bugX, bugY),
-                    movingmap = "",
-                    canmoving = true
+                    MovingMap = "",
+                    CanMoving = true
                 }); 
                  
                 // удаляем использованные точки спавна
@@ -74,32 +106,22 @@ namespace ClassLibraryBugs
                 } 
    
             } 
-              
-            //bug1 = new Bug(spawnpoints[rnd.Next(0, spawnpoints.Length)].X, spawnpoints[rnd.Next(0, spawnpoints.Length)].Y);
-            //bug2 = new Bug(spawnpoints[rnd.Next(0, spawnpoints.Length)].X, spawnpoints[rnd.Next(0, spawnpoints.Length)].Y);
-            //bug3 = new Bug(spawnpoints[rnd.Next(0, spawnpoints.Length)].X, spawnpoints[rnd.Next(0, spawnpoints.Length)].Y);
-            //bug4 = new Bug(spawnpoints[rnd.Next(0, spawnpoints.Length)].X, spawnpoints[rnd.Next(0, spawnpoints.Length)].Y);
-            //bug5 = new Bug(spawnpoints[rnd.Next(0, spawnpoints.Length)].X, spawnpoints[rnd.Next(0, spawnpoints.Length)].Y);
 
-            //сделать remove  
-
-            //bug1.Show(g, pen, new SolidBrush(Color.Red));
-            //bug2.Show(g, pen, new SolidBrush(Color.Green));
-            //bug3.Show(g, pen, new SolidBrush(Color.Blue));
-            //bug4.Show(g, pen, new SolidBrush(Color.Yellow));
-            //bug5.Show(g, pen, new SolidBrush(Color.Purple)); 
-
+            // рисуем жуков
             Draw(); 
            
         }       
 
+        /// <summary>
+        /// Метод для рисование жуков на доске
+        /// </summary>
         private void Draw()
         {
             foreach (var item in bugslist)
             {
                 item.bug.Show(g, pen, new SolidBrush(Color.DarkRed));
             }
-        } 
+        }  
 
         /// <summary>
         /// Остановка жуков при столкновении или выходе из поля
@@ -142,21 +164,24 @@ namespace ClassLibraryBugs
             // запрещаем движение  жуков 
             foreach (var item in index)
             {
-                   bugslist[item].canmoving = false;
+                   bugslist[item].CanMoving = false;
             }
         }
-             
+        
+        /// <summary>
+        /// Первый шаг: случайным образом двигаем жука и запоминаем направление
+        /// </summary>
         public void FirstStep() 
         {
             movepoints = new Point[]
             {
                 new Point(50,0), //влево
                 new Point(-50,0), //вправо 
-                new Point(0,-50), //вверх
+                new Point(0,-50), //вверх 
                 new Point(0,50), //вниз
             };
               
-            g.Clear(Color.Peru);
+            g.Clear(Color.Peru); 
 
 
 
@@ -174,10 +199,11 @@ namespace ClassLibraryBugs
                   
 
                 bugslist[i].bug.Move(offsetX , offsetY);
-                bugslist[i].direction = new Point(offsetX, offsetY);
+                // запоминаем направление
+                bugslist[i].Direction = new Point(offsetX, offsetY);
 
             }
-
+            
             Stop(bugslist); 
               
              
@@ -185,6 +211,7 @@ namespace ClassLibraryBugs
             Draw();  
 
         } 
+
         /// <summary>
         /// Обновить путь жука в MovingMap
         /// </summary> 
@@ -194,15 +221,19 @@ namespace ClassLibraryBugs
         public void AddWay(BugProp bug, int offsetX,int offsetY)
         {
             if (offsetX == 50 && offsetY == 0)
-                bug.movingmap += "right" + " ";
+                bug.MovingMap += "right" + " ";
             if (offsetX == -50 && offsetY == 0) 
-                bug.movingmap += "left" + " "; 
+                bug.MovingMap += "left" + " "; 
             if (offsetX == 0 && offsetY == -50)
-                bug.movingmap += "up" + " ";
+                bug.MovingMap += "up" + " ";
             if (offsetX == 0 && offsetY == 50)
-                bug.movingmap += "down" + " ";
+                bug.MovingMap += "down" + " ";
         }
 
+        /// <summary>
+        /// Информация о жуке: координаты, перемещение
+        /// </summary>
+        /// <returns></returns>
         public List<string> Info() 
         {
             List<string> info = new List<string>();
@@ -211,25 +242,27 @@ namespace ClassLibraryBugs
             {
                 info.Add(
                     "Координаты: " + item.bug.GetX() + ":" + item.bug.GetY() +
-                    " Перемещения: " + item.movingmap
+                    " Перемещения: " + item.MovingMap
                     );
             }
             return info; 
         } 
-
+        /// <summary>
+        /// Движение жука в определенную сторону
+        /// </summary>
         public void Move()
         {
             g.Clear(Color.Peru);
 
             foreach (var item in bugslist)
             {
-                if (item.canmoving)
+                // может ли этот жук двигатся
+                if (item.CanMoving)
                 {
-                    item.bug.Move(item.direction.X, item.direction.Y);
-                    AddWay(item, item.direction.X, item.direction.Y);
+                    item.bug.Move(item.Direction.X, item.Direction.Y);
+                    AddWay(item, item.Direction.X, item.Direction.Y);
 
                     Stop(bugslist);
-
 
                 } 
        
@@ -237,40 +270,23 @@ namespace ClassLibraryBugs
 
             Draw(); 
         } 
+
+        /// <summary>
+        /// Проверка: конец игры 
+        /// </summary>
+        /// <returns></returns>
+        public bool Check()
+        { 
+            foreach (var item in bugslist)
+            {
+                if (item.CanMoving) 
+                    return false;
+            }
+
+            bugslist.Clear();
+
+            return true;
+        } 
     }
 
-    /// <summary>
-    /// Свойства и методы жука  
-    /// </summary> 
-    public class Bug
-    {
-        private Point leftup;
-        private Rectangle rect;
-        private int size;
-         
-        public Bug(int x, int y) 
-        {  
-            leftup = new Point(x, y); 
-
-            size = 50;
-        }   
-         
-        public void Show(Graphics g, Pen pen, SolidBrush brush)
-        {
-            rect = new Rectangle(leftup.X, leftup.Y, size, size);
-            g.DrawRectangle(pen, rect); 
-            g.FillRectangle(brush, rect);
-        } 
-          
-        public void Move(int a, int b)  
-        { 
-            leftup.X += a; leftup.Y += b;
-        }
-
-
-        public int GetX() { return leftup.X; }
-        public int GetY() { return leftup.Y; }
-
-         
-    }    
 }

@@ -27,6 +27,7 @@ namespace Bugs
 
         private void pictureBox_Click(object sender, EventArgs e)
         {
+            listBox1.Items.Clear();
             labelClick.Text = ""; 
             button1.Enabled = true;
              
@@ -50,7 +51,7 @@ namespace Bugs
         private void button1_Click(object sender, EventArgs e)
         {
             buttonMove.Visible = true;
-            button1.Visible = false; 
+            button1.Enabled = false; 
 
             bugs.FirstStep();
 
@@ -72,8 +73,15 @@ namespace Bugs
 
             foreach (var item in bugs.Info())
             {
-
                 listBox1.Items.Add(item);
+            } 
+
+            if (bugs.Check())
+            {
+                buttonMove.Visible = false;
+
+                labelClick.Text = "Click>>";
+                listBox1.Items.Clear();
             }
         }
     }   
