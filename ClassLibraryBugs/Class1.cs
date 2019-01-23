@@ -109,9 +109,9 @@ namespace ClassLibraryBugs
             // изменяем координаты с помощью move
             foreach (var item in bugslist) 
             {
-
-                int offsetX = movepoints[rnd.Next(0, movepoints.Length)].X; 
-                int offsetY = movepoints[rnd.Next(0, movepoints.Length)].Y;
+                Point offsetPoint = movepoints[rnd.Next(0, movepoints.Length)];
+                int offsetX = offsetPoint.X;  
+                int offsetY = offsetPoint.Y;
                 item.bug.Move(offsetX, offsetY);
 
                 bugX += offsetX;

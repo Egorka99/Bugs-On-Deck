@@ -11,3 +11,16 @@ C:\Users\Egor\source\repos\Bugs\Bugs\obj\Debug\Bugs.pdb
 C:\Users\Egor\source\repos\Bugs\Bugs\bin\Debug\ClassLibraryBugs.dll
 C:\Users\Egor\source\repos\Bugs\Bugs\bin\Debug\ClassLibraryBugs.pdb
 C:\Users\Egor\source\repos\Bugs\Bugs\obj\Debug\BugsForm.csproj.CopyComplete
+C:\Users\Egor\source\repos\Bugs-On-Deck\Bugs\bin\Debug\Bugs.exe.config
+C:\Users\Egor\source\repos\Bugs-On-Deck\Bugs\bin\Debug\Bugs.exe
+C:\Users\Egor\source\repos\Bugs-On-Deck\Bugs\bin\Debug\Bugs.pdb
+C:\Users\Egor\source\repos\Bugs-On-Deck\Bugs\bin\Debug\ClassLibraryBugs.dll
+C:\Users\Egor\source\repos\Bugs-On-Deck\Bugs\bin\Debug\ClassLibraryBugs.pdb
+C:\Users\Egor\source\repos\Bugs-On-Deck\Bugs\obj\Debug\BugsForm.csprojAssemblyReference.cache
+C:\Users\Egor\source\repos\Bugs-On-Deck\Bugs\obj\Debug\Bugs.Form1.resources
+C:\Users\Egor\source\repos\Bugs-On-Deck\Bugs\obj\Debug\Bugs.Properties.Resources.resources
+C:\Users\Egor\source\repos\Bugs-On-Deck\Bugs\obj\Debug\BugsForm.csproj.GenerateResource.cache
+C:\Users\Egor\source\repos\Bugs-On-Deck\Bugs\obj\Debug\BugsForm.csproj.CoreCompileInputs.cache
+C:\Users\Egor\source\repos\Bugs-On-Deck\Bugs\obj\Debug\BugsForm.csproj.CopyComplete
+C:\Users\Egor\source\repos\Bugs-On-Deck\Bugs\obj\Debug\Bugs.exe
+C:\Users\Egor\source\repos\Bugs-On-Deck\Bugs\obj\Debug\Bugs.pdb
